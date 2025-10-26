@@ -90,7 +90,6 @@ pub fn build(b: *std.Build) void {
         },
     });
 
-    // hi
     const cflags = &.{
         "-fno-sanitize=undefined",
         "-Wno-elaborated-enum-base",
