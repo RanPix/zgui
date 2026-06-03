@@ -284,9 +284,15 @@ pub fn build(b: *std.Build) void {
             });
         },
         .glfw_opengl3 => {
-            if (b.lazyDependency("zglfw", .{})) |zglfw| {
-                imgui_mod.addIncludePath(zglfw.path("libs/glfw/include"));
+            if (b.lazyDependency("glfw", .{})) |glfw| {
+                imgui_mod.addIncludePath(glfw.path("include/"));
             }
+            if (b.lazyDependency("system_sdk", .{})) |system_sdk| {
+                if (target.result.os.tag == .linux) {
+                    imgui_mod.addSystemIncludePath(system_sdk.path("linux/include"));
+                }
+            }
+
             imgui_mod.addCSourceFiles(.{
                 .files = &.{
                     "libs/imgui/backends/imgui_impl_glfw.cpp",
