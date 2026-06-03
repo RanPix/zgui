@@ -501,11 +501,7 @@ void ImGui_ImplGlfw_WindowFocusCallback(GLFWwindow* window, int focused)
 
 static void ImGui_ImplGlfw_SetMousePosWithScaling(ImGui_ImplGlfw_Data* bd, GLFWwindow* window, ImGuiIO& io, double x, double y)
 {
-    float scale = ImGui_ImplGlfw_GetContentScaleForWindow(window);
-
-    x *= scale;
-    y *= scale;
-
+    (void)window;
     io.AddMousePosEvent((float)x, (float)y);
     bd->LastValidMousePos = ImVec2((float)x, (float)y);
 }
@@ -1217,6 +1213,7 @@ static void ImGui_ImplGlfw_WindowSizeCallback(GLFWwindow* window, int, int)
                 return;
         }
         viewport->PlatformRequestResize = true;
+        viewport->PlatformRequestMove = true;
     }
 }
 
